@@ -1,0 +1,24 @@
+subscription: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx
+resource-group: rg-name
+vault:
+  # Name of the Azure Vault where the SSH key is stored
+  name: vault-name
+  # Key prefix to "find" 
+  key-prefix: ssh-private-key
+bastion:
+  # Name of the Azure Bastion service
+  name: bastion
+  # Name of the bastion vm host associate to the azure bastion host
+  server: bastion-host
+ssh:
+  # port number to open to forward traffic localy, 
+  # ℹ️if port=0 system automaticaly find an empty port
+  port: 0
+  # user for connection to bastion host
+  user: adminuser
+  # destination "host:port" to forward traffic
+  dest: 10.0.16.4:443
+
+# optional; needed to overwrite the cluster server property in kubeconfig
+# ℹ️ you need to generate config with "az-cli" before using this
+cluster: cluster-name-in-kubeconfig
