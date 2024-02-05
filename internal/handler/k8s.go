@@ -1,12 +1,23 @@
-package main
+package handler
 
 import (
 	"fmt"
 	"log"
+	"net"
 
 	"k8s.io/client-go/tools/clientcmd"
 	"k8s.io/client-go/tools/clientcmd/api"
 )
+
+type TunnelKubernetesHandler struct {
+	KubeClusterName string
+}
+
+func (t *TunnelKubernetesHandler) Handle(l net.Listener) error {
+	server := fmt.Sprintf("https://localhost:%d", l.Addr().(*net.TCPAddr).Port)
+	KubeConfigClusterSet(t.KubeClusterName, false, server)
+	return nil
+}
 
 func KubeConfigClusterListDisplay() {
 	loadingRules := clientcmd.NewDefaultClientConfigLoadingRules()
